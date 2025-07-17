@@ -7,6 +7,8 @@
     <link id="favicon" rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
+    <!-- Tambahkan library CryptoJS untuk hashing SHA-256 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -43,7 +45,7 @@
         <div class="w-full max-w-sm mx-auto">
             <header class="text-center mb-8">
                 <h1 class="text-3xl font-bold text-slate-900 dark:text-white">
-                    <span class="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">Canva OTP Akses Terproteksi</span>
+                    <span class="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">Akses Terproteksi</span>
                 </h1>
                 <p class="text-slate-500 dark:text-gray-400 mt-2">Masukkan kata sandi untuk melanjutkan</p>
             </header>
@@ -90,7 +92,7 @@
 
     <script>
         // --- Konfigurasi ---
-        const CORRECT_PASSWORD = "asproject"; // GANTI DENGAN KATA SANDI ANDA
+        const CORRECT_PASSWORD_HASH = "6e3ada6d64a9cbc4ae92fd0d12cc5d74caab6a42c32694a295eb639514b33b54"; // Hash untuk "password"
         const POLLING_INTERVAL = 2000;
         const MONITORING_DURATION = 20000;
         const API_BASE_URL = "https://mailgo.site/api/messages";
@@ -127,7 +129,11 @@
 
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            if (passwordInput.value === CORRECT_PASSWORD) {
+            // Hash input dari pengguna menggunakan SHA-256
+            const userInputHash = CryptoJS.SHA256(passwordInput.value).toString();
+
+            // Bandingkan hash input dengan hash yang tersimpan
+            if (userInputHash === CORRECT_PASSWORD_HASH) {
                 sessionStorage.setItem('isVerified', 'true');
                 showApp();
             } else {
