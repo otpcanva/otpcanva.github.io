@@ -26,18 +26,13 @@
         @keyframes newOtpHighlight { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
         .new-otp-item { animation: newOtpHighlight 0.8s ease-in-out; }
 
-        /* Animasi Gemetar saat Salah Password */
         @keyframes shake {
-            10%, 90% { transform: translate3d(-1px, 0, 0); }
-            20%, 80% { transform: translate3d(2px, 0, 0); }
-            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-            40%, 60% { transform: translate3d(4px, 0, 0); }
+            10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); }
         }
         .shake { animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both; }
 
         #progress-bar { transition: width 1s linear; }
 
-        /* Animasi Tombol saat Diklik & Hover */
         .btn { transition: transform 0.1s ease, box-shadow 0.2s ease; }
         .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .dark .btn:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
@@ -54,15 +49,11 @@
 </head>
 <body class="bg-slate-100 dark:bg-gray-900 text-slate-800 dark:text-gray-200 transition-colors duration-300 text-sm">
 
-    <button id="theme-toggle" class="fixed top-4 right-4 p-2 rounded-full bg-white dark:bg-gray-700 text-slate-600 dark:text-gray-300 hover:bg-slate-200 dark:hover:bg-gray-600 transition-all duration-300 z-10 btn"></button>
-
     <!-- Layar Login -->
     <div id="login-screen" class="w-full h-screen flex items-center justify-center p-4">
         <div class="w-full max-w-sm mx-auto">
             <header class="text-center mb-6">
-                <h1 class="text-2xl font-bold text-slate-900 dark:text-white">
-                    <span class="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">OTP Canva Akses Terproteksi</span>
-                </h1>
+                <h1 class="text-2xl font-bold text-slate-900 dark:text-white"><span class="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">Akses Terproteksi</span></h1>
                 <p class="text-xs text-slate-500 dark:text-gray-400 mt-2">Masukkan kata sandi untuk melanjutkan</p>
             </header>
             <form id="login-form" class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
@@ -78,36 +69,28 @@
 
     <!-- Aplikasi Utama (Tersembunyi) -->
     <div id="app-screen" class="hidden">
-        <div class="w-full max-w-lg mx-auto pt-16 pb-4 px-4">
-            <header class="text-center mb-8">
-                <h1 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
-                    <span class="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">CANVA OTP</span>
+        <div class="w-full max-w-2xl mx-auto pt-16 pb-4 px-4">
+             <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg transition-colors duration-300">
+                <h1 class="text-center text-base font-bold text-slate-900 dark:text-white mb-4">
+                    <span class="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">Canva OTP Fetcher by AS</span>
                 </h1>
-                <p class="text-sm text-slate-500 dark:text-gray-400 mt-2">Premium Canva OTP Fetcher by AS</p>
-            </header>
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg mb-8 transition-colors duration-300">
-                <div class="mb-4">
-                    <label for="email-input" class="block text-xs font-medium text-slate-600 dark:text-gray-300 mb-2">Email</label>
-                    <div class="flex items-center gap-2">
-                        <input type="text" id="email-input" class="flex-grow w-full text-sm bg-slate-100 dark:bg-gray-700 border-slate-300 dark:border-gray-600 text-slate-900 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors" placeholder="Generate atau masukkan satu email..."/>
-                        <button id="copy-email-btn" title="Copy Email" class="flex-shrink-0 bg-slate-500 hover:bg-slate-600 dark:bg-gray-600 dark:hover:bg-gray-500 text-white font-bold px-5 py-2.5 rounded-lg transition duration-300 btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" /><path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" /></svg>
-                        </button>
-                        <button id="clear-btn" title="Bersihkan" class="flex-shrink-0 bg-red-600 hover:bg-red-700 text-white font-bold px-5 py-2.5 rounded-lg transition duration-300 btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm4 0a1 1 0 012 0v6a1 1 0 11-2 0V8z" clip-rule="evenodd" /></svg>
-                        </button>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="md:col-span-2 space-y-2">
+                        <input type="text" id="email-input" class="w-full text-sm bg-slate-100 dark:bg-gray-700 border-slate-300 dark:border-gray-600 text-slate-900 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors" placeholder="Email..."/>
+                        <div id="results-container" class="w-full"></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button id="copy-email-btn" title="Copy Email" class="w-full h-full bg-slate-500 hover:bg-slate-600 dark:bg-gray-600 dark:hover:bg-gray-500 text-white font-bold p-2.5 rounded-lg transition duration-300 btn text-xs">Copy email</button>
+                        <button id="clear-btn" title="Bersihkan" class="w-full h-full bg-red-600 hover:bg-red-700 text-white font-bold p-2.5 rounded-lg transition duration-300 btn text-xs">Delete</button>
+                        <button id="generate-btn" class="w-full h-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 text-xs btn">Gen</button>
+                        <button id="toggle-monitor-btn" class="w-full h-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 text-xs btn">Cek OTP</button>
                     </div>
                 </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <button id="generate-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 text-xs btn">Generate</button>
-                    <button id="toggle-monitor-btn" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 text-xs btn">Cek OTP</button>
-                </div>
-                <div class="w-full bg-slate-200 dark:bg-gray-700 rounded-full h-2 mt-4 overflow-hidden hidden" id="progress-container">
+                 <div class="w-full bg-slate-200 dark:bg-gray-700 rounded-full h-2 mt-4 overflow-hidden hidden" id="progress-container">
                     <div id="progress-bar" class="bg-purple-500 h-2 rounded-full" style="width: 100%"></div>
                 </div>
+                <div id="status-container" class="text-center mt-4 h-5 text-sm"></div>
             </div>
-            <div id="status-container" class="text-center mb-4 h-5 text-sm"></div>
-            <div id="results-container"></div>
         </div>
     </div>
 
@@ -129,8 +112,6 @@
         const loginForm = document.getElementById('login-form');
         const passwordInput = document.getElementById('password-input');
         const errorMessage = document.getElementById('error-message');
-        
-        const themeToggleBtn = document.getElementById('theme-toggle');
         const generateBtn = document.getElementById('generate-btn');
         const copyEmailBtn = document.getElementById('copy-email-btn');
         const toggleBtn = document.getElementById('toggle-monitor-btn');
@@ -143,10 +124,6 @@
         const favicon = document.getElementById('favicon');
 
         // --- Ikon ---
-        const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 14.95l.707-.707a1 1 0 10-1.414-1.414l-.707.707a1 1 0 001.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 100 2h1z" clip-rule="evenodd" /></svg>`;
-        const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" /></svg>`;
-        const copyIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" /><path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" /></svg>`;
-        const clearIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm4 0a1 1 0 012 0v6a1 1 0 11-2 0V8z" clip-rule="evenodd" /></svg>`;
         const checkIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>`;
 
         // --- Logika Proteksi & Login ---
@@ -174,15 +151,6 @@
         if (sessionStorage.getItem('isVerified') === 'true') {
             showApp();
         }
-
-        // --- Logika Tema ---
-        const applyTheme = (isDark) => {
-            document.documentElement.classList.toggle('dark', isDark);
-            themeToggleBtn.innerHTML = isDark ? sunIcon : moonIcon;
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        };
-        themeToggleBtn.addEventListener('click', () => applyTheme(!document.documentElement.classList.contains('dark')));
-        applyTheme(localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches));
 
         // --- Notifikasi Suara & Favicon ---
         const playNotificationSound = () => {
@@ -212,7 +180,7 @@
                 const response = await fetch(`${API_BASE_URL}/${email}/aurigo`);
                 if (!response.ok) {
                     if(response.status !== 404) updateCardStatus(email, 'error');
-                    return; 
+                    return;
                 }
                 const messages = await response.json();
                 messages.reverse();
@@ -220,15 +188,12 @@
                 for (const msg of messages) {
                     try {
                         if (!msg || !msg.id || !msg.content) continue;
-
                         const isFromCanva = msg.from?.toLowerCase().includes("canva") || msg.subject?.toLowerCase().includes("canva");
                         const isNewMessage = !usedMessageIds[email].has(msg.id);
-
                         if (isFromCanva && isNewMessage) {
                             usedMessageIds[email].add(msg.id);
                             let otpMatches = msg.content.match(/\b\d{6}\b/g);
                             let foundOtps = otpMatches ? [...new Set(otpMatches)].filter(otp => otp !== '000000') : [];
-                            
                             const card = document.getElementById(`card-${email.replace(/[@.]/g, '-')}`);
                             if (card) {
                                 const existingOtps = JSON.parse(card.dataset.otps || '[]');
@@ -244,9 +209,7 @@
                                 }
                             }
                         }
-                    } catch (innerError) {
-                        console.warn('Skipping a malformed message:', innerError);
-                    }
+                    } catch (innerError) { console.warn('Skipping a malformed message:', innerError); }
                 }
             } catch (error) {
                 console.error(`[${email}] Error polling:`, error);
@@ -260,25 +223,16 @@
                 showStatus("⚠️ Format email tidak valid.", 'yellow', 3000);
                 return;
             }
-
             createResultCard(email);
             usedMessageIds = { [email]: new Set() };
             setFavicon('loading');
-
-            pollInbox(email); 
+            pollInbox(email);
             pollingInterval = setInterval(() => pollInbox(email), POLLING_INTERVAL);
             stopTimeout = setTimeout(stopMonitoring, MONITORING_DURATION);
-
             progressContainer.classList.remove('hidden');
             progressBar.style.width = '100%';
             setTimeout(() => { progressBar.style.width = '0%'; progressBar.style.transition = `width ${MONITORING_DURATION / 1000}s linear`; }, 100);
-
-            let countdown = MONITORING_DURATION / 1000;
-            showStatus(`📡 Memantau... sisa ${countdown} detik`, 'green');
-            countdownInterval = setInterval(() => {
-                countdown--;
-                if (countdown >= 0) showStatus(`📡 Memantau... sisa ${countdown} detik`, 'green');
-            }, 1000);
+            
 
             toggleBtn.textContent = 'Hentikan';
             toggleBtn.classList.replace('bg-purple-600', 'bg-yellow-600');
@@ -291,13 +245,8 @@
             if (stopTimeout) clearTimeout(stopTimeout);
             if (countdownInterval) clearInterval(countdownInterval);
             pollingInterval = stopTimeout = countdownInterval = null;
-
-            if (document.querySelector('[data-has-result="true"]')) {
-                setFavicon('found');
-            } else {
-                setFavicon('idle');
-            }
-            
+            if (document.querySelector('[data-has-result="true"]')) setFavicon('found');
+            else setFavicon('idle');
             showStatus("⏹️ Pemantauan selesai.", 'gray', 5000);
             progressContainer.classList.add('hidden');
             toggleBtn.textContent = 'Cek OTP';
@@ -307,18 +256,15 @@
         }
 
         function createResultCard(email) {
-            const cardHTML = `<div id="card-${email.replace(/[@.]/g, '-')}" data-otps='[]' class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg new-item transition-colors duration-300"><div class="flex justify-between items-center mb-4"><p class="text-base font-medium text-purple-500 dark:text-purple-400 truncate w-4/5" title="${email}">${email}</p><span id="status-${email.replace(/[@.]/g, '-')}" class="text-xs font-semibold text-slate-400 dark:text-gray-400 animate-pulse">Menunggu...</span></div><div id="otp-display-${email.replace(/[@.]/g, '-')}" class="bg-slate-100 dark:bg-gray-900 rounded-lg p-4 text-center min-h-[80px] flex flex-col justify-center transition-colors duration-300"><p class="text-xs text-slate-500 dark:text-gray-500 mb-1">OTP DARI CANVA</p><p class="text-2xl font-bold text-slate-400 dark:text-gray-500 tracking-widest leading-tight">- - - - - -</p></div><div id="copy-container-${email.replace(/[@.]/g, '-')}" class="mt-4"></div></div>`;
+            const cardHTML = `<div id="card-${email.replace(/[@.]/g, '-')}" data-otps='[]' class="bg-slate-100 dark:bg-gray-900 rounded-lg p-4 text-center min-h-[80px] flex flex-col justify-center transition-colors duration-300 new-item"><p class="text-xs text-slate-500 dark:text-gray-500 mb-1">OTP DARI CANVA</p><p class="text-2xl font-bold text-slate-400 dark:text-gray-500 tracking-widest leading-tight">- - - - - -</p></div><div id="copy-container-${email.replace(/[@.]/g, '-')}" class="mt-2"></div>`;
             resultsContainer.innerHTML = cardHTML;
         }
-        
+
         function updateCardWithOTP(email, allOtps, subject, newOtps = []) {
             const card = document.getElementById(`card-${email.replace(/[@.]/g, '-')}`);
             if (!card) return;
-
-            const otpDisplayEl = document.getElementById(`otp-display-${email.replace(/[@.]/g, '-')}`);
-            const statusEl = document.getElementById(`status-${email.replace(/[@.]/g, '-')}`);
+            const otpDisplayEl = card.querySelector('p:last-child');
             const copyContainerEl = document.getElementById(`copy-container-${email.replace(/[@.]/g, '-')}`);
-
             if (allOtps && allOtps.length > 0) {
                 const newestOtp = allOtps[0];
                 const otpHtml = allOtps.map(otp => {
@@ -326,62 +272,59 @@
                     const colorClass = isNew ? 'text-yellow-500 dark:text-yellow-400' : 'text-green-600 dark:text-green-400';
                     return `<span class="relative inline-block px-1.5 ${isNew ? 'new-otp-item' : ''} font-bold ${colorClass}">${otp}</span>`;
                 }).join('<span class="mx-1 text-slate-400 dark:text-gray-600">|</span>');
-                
-                otpDisplayEl.innerHTML = `<p class="text-xs text-slate-500 dark:text-gray-500 mb-1">OTP DARI CANVA</p><p class="text-2xl font-bold tracking-normal leading-tight">${otpHtml}</p>`;
+                otpDisplayEl.innerHTML = otpHtml;
+                otpDisplayEl.classList.remove('tracking-widest');
                 copyContainerEl.innerHTML = `<button data-otp-to-copy="${newestOtp}" class="copy-otp-btn w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 text-xs btn">Copy OTP Terbaru (${newestOtp})</button>`;
-                statusEl.textContent = 'Ditemukan!';
-                statusEl.className = 'text-xs font-semibold text-green-600 dark:text-green-400';
             } else {
                 if (!card.dataset.hasResult) {
-                    otpDisplayEl.innerHTML = `<p class="text-xs text-slate-500 dark:text-gray-500 mb-1">OTP DARI CANVA</p><p class="text-2xl font-bold text-red-500 dark:text-red-400 tracking-normal leading-tight">Tidak Ditemukan</p>`;
-                    statusEl.textContent = 'Tidak ada OTP';
-                    statusEl.className = 'text-xs font-semibold text-red-500 dark:text-red-400';
+                    otpDisplayEl.innerHTML = `Tidak Ditemukan`;
+                    otpDisplayEl.classList.add('text-red-500', 'dark:text-red-400');
                 }
             }
             if (allOtps.length > 0) card.dataset.hasResult = "true";
-            statusEl.classList.remove('animate-pulse');
         }
 
         function updateCardStatus(email, statusType) {
-            const statusEl = document.getElementById(`status-${email.replace(/[@.]/g, '-')}`);
-            if (statusEl && statusType === 'error') {
-                statusEl.textContent = 'Error';
-                statusEl.className = 'text-xs font-semibold text-red-500 dark:text-red-400';
-                statusEl.classList.remove('animate-pulse');
+            const card = document.getElementById(`card-${email.replace(/[@.]/g, '-')}`);
+            if (card && statusType === 'error') {
+                 const otpDisplayEl = card.querySelector('p:last-child');
+                 otpDisplayEl.innerHTML = 'Error';
+                 otpDisplayEl.classList.add('text-red-500', 'dark:text-red-400');
             }
         }
         
         function showStatus(message, color, duration = 0) {
-            const colorClasses = {
-                green: 'text-green-600 dark:text-green-400', yellow: 'text-yellow-500 dark:text-yellow-400', red: 'text-red-500 dark:text-red-400', blue: 'text-blue-500 dark:text-blue-400', gray: 'text-slate-500 dark:text-gray-400'
-            };
-            statusContainer.textContent = message;
-            statusContainer.className = `text-center mb-4 h-5 text-sm ${colorClasses[color] || 'text-slate-500 dark:text-gray-400'}`;
-            if (duration > 0) setTimeout(() => { if (statusContainer.textContent === message) statusContainer.textContent = ''; }, duration);
+            const colorClasses = { green: 'text-green-600 dark:text-green-400', yellow: 'text-yellow-500 dark:text-yellow-400', red: 'text-red-500 dark:text-red-400', blue: 'text-blue-500 dark:text-blue-400', gray: 'text-slate-500 dark:text-gray-400' };
+            if(statusContainer) {
+                statusContainer.textContent = message;
+                statusContainer.className = `text-center h-5 text-sm ${colorClasses[color] || 'text-slate-500 dark:text-gray-400'}`;
+                if (duration > 0) setTimeout(() => { if (statusContainer.textContent === message) statusContainer.textContent = ''; }, duration);
+            }
         }
 
-        function copyToClipboard(text, buttonElement, isOtpButton = false) {
-            const tempInput = document.createElement('textarea');
-            tempInput.value = text;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
+        function copyToClipboard(text, buttonElement, isOtpButton = false, isClearButton = false) {
+            if(text) {
+                const tempInput = document.createElement('textarea');
+                tempInput.value = text;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+            }
             if (buttonElement) {
-                const originalContent = buttonElement.innerHTML;
+                const originalContent = buttonElement.textContent;
                 buttonElement.innerHTML = isOtpButton ? 'Tersalin!' : checkIcon;
-                const iconToRestore = isOtpButton ? originalContent : (buttonElement.id === 'clear-btn' ? clearIcon : copyIcon);
-                setTimeout(() => { buttonElement.innerHTML = iconToRestore; }, 2000);
+                setTimeout(() => { buttonElement.textContent = originalContent; }, 2000);
             }
         }
 
         function validateEmail(email) {
             if (!email) return false;
-            const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            return re.test(String(email).toLowerCase());
+            return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(String(email).toLowerCase());
         }
-
-        // --- Event Listeners Aplikasi Utama ---
+        
+        // --- Inisialisasi Event Listeners ---
+        // PERBAIKAN: Pindahkan semua event listener ke sini untuk memastikan mereka selalu aktif
         toggleBtn.addEventListener('click', () => { if (pollingInterval) stopMonitoring(); else startMonitoring(); });
         clearBtn.addEventListener('click', () => {
             if (pollingInterval) stopMonitoring();
@@ -389,7 +332,7 @@
             emailInput.value = '';
             showStatus("🧹 Hasil & email dibersihkan.", 'gray', 3000);
             setFavicon('idle');
-            copyToClipboard(null, clearBtn);
+            copyToClipboard(null, clearBtn, false, true);
         });
         generateBtn.addEventListener('click', () => {
             emailInput.value = generateReadableEmail();
@@ -423,6 +366,11 @@
                 copyToClipboard(otp, button, true);
             }
         });
+
+        // Jalankan inisialisasi
+        if (sessionStorage.getItem('isVerified') === 'true') {
+            showApp();
+        }
     });
     </script>
 </body>
