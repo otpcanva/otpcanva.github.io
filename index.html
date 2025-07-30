@@ -85,7 +85,7 @@
                         <select id="domain-select" class="w-full text-sm bg-slate-100 dark:bg-gray-700 border-slate-300 dark:border-gray-600 text-slate-900 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
                             <option value="@mailgo.site">@mailgo.site</option>
                             <option value="@mieayam.site">@mieayam.site</option>
-                            <option value="@mieayam.site">@jukimail.site</option>
+                            <option value="@jukimail.site">@jukimail.site</option>
                         </select>
                         <div id="results-container" class="w-full"></div>
                     </div>
@@ -229,7 +229,7 @@
 
         function startMonitoring() {
             const username = emailUsernameInput.value.trim();
-            const domain = domainSelect.value;
+            const domain = domainSelect.options[domainSelect.selectedIndex].value;
             const email = username + domain;
 
             if (!validateEmail(email)) {
@@ -347,12 +347,13 @@
         });
         generateBtn.addEventListener('click', () => {
             emailUsernameInput.value = generateReadableUsername();
-            const fullEmail = emailUsernameInput.value + domainSelect.value;
+            const fullEmail = emailUsernameInput.value + domainSelect.options[domainSelect.selectedIndex].value;
             showStatus(`📧 Email baru digenerate: ${fullEmail}`, 'blue', 4000);
             emailUsernameInput.dispatchEvent(new Event('input'));
         });
         copyEmailBtn.addEventListener('click', () => {
-            const fullEmail = emailUsernameInput.value.trim() + domainSelect.value;
+            const domain = domainSelect.options[domainSelect.selectedIndex].value;
+            const fullEmail = emailUsernameInput.value.trim() + domain;
             if (!emailUsernameInput.value.trim()) {
                 showStatus("⚠️ Tidak ada email untuk disalin.", 'yellow', 3000);
                 return;
@@ -361,7 +362,8 @@
             showStatus("✅ Email berhasil disalin ke clipboard!", 'green', 3000);
         });
         emailUsernameInput.addEventListener('input', () => {
-            const fullEmail = emailUsernameInput.value.trim() + domainSelect.value;
+            const domain = domainSelect.options[domainSelect.selectedIndex].value;
+            const fullEmail = emailUsernameInput.value.trim() + domain;
             emailUsernameInput.classList.remove('border-red-500', 'dark:border-red-500', 'text-red-500', 'dark:text-red-400', 'border-green-500', 'dark:border-green-500', 'text-green-600', 'dark:text-green-400');
             if (emailUsernameInput.value.length > 0) {
                 if (validateEmail(fullEmail)) {
