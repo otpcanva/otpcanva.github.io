@@ -85,6 +85,7 @@
                         <select id="domain-select" class="w-full text-sm bg-slate-100 dark:bg-gray-700 border-slate-300 dark:border-gray-600 text-slate-900 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
                             <option value="@mailgo.site">@mailgo.site</option>
                             <option value="@mieayam.site">@mieayam.site</option>
+                            <option value="@mieayam.site">@jukimail.site</option>
                         </select>
                         <div id="results-container" class="w-full"></div>
                     </div>
@@ -244,8 +245,6 @@
             progressContainer.classList.remove('hidden');
             progressBar.style.width = '100%';
             setTimeout(() => { progressBar.style.width = '0%'; progressBar.style.transition = `width ${MONITORING_DURATION / 1000}s linear`; }, 100);
-            
-            showStatus(`📡 Memantau...`, 'green');
 
             toggleBtn.textContent = 'Hentikan';
             toggleBtn.classList.replace('bg-purple-600', 'bg-yellow-600');
