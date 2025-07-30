@@ -53,7 +53,7 @@
     <div id="login-screen" class="w-full h-screen flex items-center justify-center p-4">
         <div class="w-full max-w-sm mx-auto">
             <header class="text-center mb-6">
-                <h1 class="text-2xl font-bold text-slate-900 dark:text-white"><span class="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">Canva OTP Akses Terproteksi</span></h1>
+                <h1 class="text-2xl font-bold text-slate-900 dark:text-white"><span class="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">Akses Terproteksi</span></h1>
                 <p class="text-xs text-slate-500 dark:text-gray-400 mt-2">Masukkan kata sandi untuk melanjutkan</p>
             </header>
             <form id="login-form" class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
@@ -76,14 +76,22 @@
                 </h1>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div class="md:col-span-2 space-y-2">
-                        <input type="text" id="email-input" class="w-full text-sm bg-slate-100 dark:bg-gray-700 border-slate-300 dark:border-gray-600 text-slate-900 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors" placeholder="Email..."/>
+                        <div class="relative">
+                            <input type="text" id="email-username" class="w-full text-sm bg-slate-100 dark:bg-gray-700 border-slate-300 dark:border-gray-600 text-slate-900 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors" placeholder="Username..."/>
+                            <button id="clear-btn" title="Bersihkan" class="clear-btn absolute top-1/2 right-2 -translate-y-1/2 text-slate-400 hover:text-red-500 dark:hover:text-red-400 transition-colors btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" /></svg>
+                            </button>
+                        </div>
+                        <select id="domain-select" class="w-full text-sm bg-slate-100 dark:bg-gray-700 border-slate-300 dark:border-gray-600 text-slate-900 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
+                            <option value="@mailgo.site">@mailgo.site</option>
+                            <option value="@mieayam.site">@mieayam.site</option>
+                        </select>
                         <div id="results-container" class="w-full"></div>
                     </div>
                     <div class="grid grid-cols-2 gap-2">
                         <button id="copy-email-btn" title="Copy Email" class="w-full h-full bg-slate-500 hover:bg-slate-600 dark:bg-gray-600 dark:hover:bg-gray-500 text-white font-bold p-2.5 rounded-lg transition duration-300 btn text-xs">Copy email</button>
-                        <button id="clear-btn" title="Bersihkan" class="w-full h-full bg-red-600 hover:bg-red-700 text-white font-bold p-2.5 rounded-lg transition duration-300 btn text-xs">Delete</button>
                         <button id="generate-btn" class="w-full h-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 text-xs btn">Gen</button>
-                        <button id="toggle-monitor-btn" class="w-full h-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 text-xs btn">Cek OTP</button>
+                        <button id="toggle-monitor-btn" class="col-span-2 w-full h-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 text-xs btn">Cek OTP</button>
                     </div>
                 </div>
                  <div class="w-full bg-slate-200 dark:bg-gray-700 rounded-full h-2 mt-4 overflow-hidden hidden" id="progress-container">
@@ -116,7 +124,8 @@
         const copyEmailBtn = document.getElementById('copy-email-btn');
         const toggleBtn = document.getElementById('toggle-monitor-btn');
         const clearBtn = document.getElementById('clear-btn');
-        const emailInput = document.getElementById('email-input');
+        const emailUsernameInput = document.getElementById('email-username');
+        const domainSelect = document.getElementById('domain-select');
         const resultsContainer = document.getElementById('results-container');
         const statusContainer = document.getElementById('status-container');
         const progressContainer = document.getElementById('progress-container');
@@ -165,14 +174,14 @@
         };
         
         // --- Fungsi Inti Aplikasi ---
-        function generateReadableEmail() {
+        function generateReadableUsername() {
             const vowels = 'aeiou', consonants = 'bcdfghjklmnpqrstvwxyz';
             let username = '', length = Math.floor(Math.random() * 2) + 6, useVowel = Math.random() > 0.5;
             for (let i = 0; i < length; i++) {
                 username += useVowel ? vowels.charAt(Math.floor(Math.random() * vowels.length)) : consonants.charAt(Math.floor(Math.random() * consonants.length));
                 useVowel = !useVowel;
             }
-            return `${username}@mailgo.site`;
+            return username;
         }
 
         async function pollInbox(email) {
@@ -218,9 +227,12 @@
         }
 
         function startMonitoring() {
-            const email = emailInput.value.trim();
+            const username = emailUsernameInput.value.trim();
+            const domain = domainSelect.value;
+            const email = username + domain;
+
             if (!validateEmail(email)) {
-                showStatus("⚠️ Format email tidak valid.", 'yellow', 3000);
+                showStatus("⚠️ Username tidak valid atau kosong.", 'yellow', 3000);
                 return;
             }
             createResultCard(email);
@@ -232,11 +244,13 @@
             progressContainer.classList.remove('hidden');
             progressBar.style.width = '100%';
             setTimeout(() => { progressBar.style.width = '0%'; progressBar.style.transition = `width ${MONITORING_DURATION / 1000}s linear`; }, 100);
+            
+            showStatus(`📡 Memantau...`, 'green');
 
             toggleBtn.textContent = 'Hentikan';
             toggleBtn.classList.replace('bg-purple-600', 'bg-yellow-600');
             toggleBtn.classList.replace('hover:bg-purple-700', 'hover:bg-yellow-700');
-            [emailInput, generateBtn, copyEmailBtn, clearBtn].forEach(el => el.disabled = true);
+            [emailUsernameInput, domainSelect, generateBtn, copyEmailBtn, clearBtn].forEach(el => el.disabled = true);
         }
 
         function stopMonitoring() {
@@ -251,7 +265,7 @@
             toggleBtn.textContent = 'Cek OTP';
             toggleBtn.classList.replace('bg-yellow-600', 'bg-purple-600');
             toggleBtn.classList.replace('hover:bg-yellow-700', 'hover:bg-purple-700');
-            [emailInput, generateBtn, copyEmailBtn, clearBtn].forEach(el => el.disabled = false);
+            [emailUsernameInput, domainSelect, generateBtn, copyEmailBtn, clearBtn].forEach(el => el.disabled = false);
         }
 
         function createResultCard(email) {
@@ -285,7 +299,6 @@
 
         function updateCardStatus(email, statusType) {
             const card = document.getElementById(`card-${email.replace(/[@.]/g, '-')}`);
-            // PERBAIKAN: Hanya update ke error jika belum ada hasil
             if (card && statusType === 'error' && !card.dataset.hasResult) {
                  const otpDisplayEl = card.querySelector('p:last-child');
                  otpDisplayEl.innerHTML = 'Error';
@@ -328,33 +341,34 @@
         clearBtn.addEventListener('click', () => {
             if (pollingInterval) stopMonitoring();
             resultsContainer.innerHTML = '';
-            emailInput.value = '';
+            emailUsernameInput.value = '';
             showStatus("🧹 Hasil & email dibersihkan.", 'gray', 3000);
             setFavicon('idle');
             copyToClipboard(null, clearBtn, false, true);
         });
         generateBtn.addEventListener('click', () => {
-            emailInput.value = generateReadableEmail();
-            showStatus(`📧 Email baru digenerate: ${emailInput.value}`, 'blue', 4000);
-            emailInput.dispatchEvent(new Event('input'));
+            emailUsernameInput.value = generateReadableUsername();
+            const fullEmail = emailUsernameInput.value + domainSelect.value;
+            showStatus(`📧 Email baru digenerate: ${fullEmail}`, 'blue', 4000);
+            emailUsernameInput.dispatchEvent(new Event('input'));
         });
         copyEmailBtn.addEventListener('click', () => {
-            const emailToCopy = emailInput.value;
-            if (!emailToCopy) {
+            const fullEmail = emailUsernameInput.value.trim() + domainSelect.value;
+            if (!emailUsernameInput.value.trim()) {
                 showStatus("⚠️ Tidak ada email untuk disalin.", 'yellow', 3000);
                 return;
             }
-            copyToClipboard(emailToCopy, copyEmailBtn);
+            copyToClipboard(fullEmail, copyEmailBtn);
             showStatus("✅ Email berhasil disalin ke clipboard!", 'green', 3000);
         });
-        emailInput.addEventListener('input', () => {
-            const email = emailInput.value;
-            emailInput.classList.remove('border-red-500', 'dark:border-red-500', 'text-red-500', 'dark:text-red-400', 'border-green-500', 'dark:border-green-500', 'text-green-600', 'dark:text-green-400');
-            if (email.length > 0) {
-                if (validateEmail(email)) {
-                    emailInput.classList.add('border-green-500', 'dark:border-green-500', 'text-green-600', 'dark:text-green-400');
+        emailUsernameInput.addEventListener('input', () => {
+            const fullEmail = emailUsernameInput.value.trim() + domainSelect.value;
+            emailUsernameInput.classList.remove('border-red-500', 'dark:border-red-500', 'text-red-500', 'dark:text-red-400', 'border-green-500', 'dark:border-green-500', 'text-green-600', 'dark:text-green-400');
+            if (emailUsernameInput.value.length > 0) {
+                if (validateEmail(fullEmail)) {
+                    emailUsernameInput.classList.add('border-green-500', 'dark:border-green-500', 'text-green-600', 'dark:text-green-400');
                 } else {
-                    emailInput.classList.add('border-red-500', 'dark:border-red-500', 'text-red-500', 'dark:text-red-400');
+                    emailUsernameInput.classList.add('border-red-500', 'dark:border-red-500', 'text-red-500', 'dark:text-red-400');
                 }
             }
         });
@@ -365,6 +379,11 @@
                 copyToClipboard(otp, button, true);
             }
         });
+        
+        // Inisialisasi
+        if (sessionStorage.getItem('isVerified') === 'true') {
+            showApp();
+        }
     });
     </script>
 </body>
